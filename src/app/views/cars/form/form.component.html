@@ -1,3 +1,44 @@
 <p>form works!</p>
 
 <div>{{ car | json }}</div>
+
+<form [formGroup]="orderForm">
+  <label for="full-name">Imię i nazwisko</label>
+  <input id="full-name" type="text" formControlName="fullName" />
+
+  <label for="phone-number">Telefon</label>
+  <input id="phone-number" type="tel" formControlName="phoneNumber" />
+
+  <label for="email">Email</label>
+  <input id="email" type="email" formControlName="email" />
+
+  <fieldset>
+    <legend>Forma płatności</legend>
+
+    <label for="card-payment">Karta</label>
+    <input
+      id="card-payment"
+      type="radio"
+      value="card"
+      formControlName="paymentMethod"
+    />
+
+    <label for="transfer-payment">Przelew</label>
+    <input
+      id="transfer-payment"
+      type="radio"
+      value="transfer"
+      formControlName="paymentMethod"
+    />
+
+    <label for="cash-payment">Gotówka</label>
+    <input
+      id="cash-payment"
+      type="radio"
+      value="cash"
+      formControlName="paymentMethod"
+    />
+  </fieldset>
+
+  <button type="submit" [disabled]="!orderForm.valid">Zatwierdź</button>
+</form>

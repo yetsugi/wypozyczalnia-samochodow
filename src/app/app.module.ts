@@ -13,6 +13,7 @@ import { SummaryComponent as CarsSummaryView } from './views/cars/summary/summar
 import { PageNotFoundComponent as ErrorsPageNotFoundView } from './views/errors/page-not-found/page-not-found.component';
 
 import { ListComponent as CarsListComponent } from './views/components/cars/list/list.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,12 @@ import { ListComponent as CarsListComponent } from './views/components/cars/list
 
     CarsListComponent,
   ],
-  imports: [BrowserModule, HttpClientModule, AppRoutingModule],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+  ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pl' },
     { provide: DEFAULT_CURRENCY_CODE, useValue: 'zł' },
