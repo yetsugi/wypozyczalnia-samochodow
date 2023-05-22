@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import * as Cars from './views/cars/cars';
-import * as Errors from './views/errors/errors';
+import { IndexComponent as CarsIndexView } from './views/cars/index/index.component';
+import { FormComponent as CarsFormView } from './views/cars/form/form.component';
+import { SummaryComponent as CarsSummaryView } from './views/cars/summary/summary.component';
+import { PageNotFoundComponent as ErrorsPageNotFoundView } from './views/errors/page-not-found/page-not-found.component';
 
 const routes: Routes = [
   {
@@ -13,22 +15,22 @@ const routes: Routes = [
   {
     path: 'cars',
     title: getPageTitle('Samochody'),
-    component: Cars.IndexView,
+    component: CarsIndexView,
   },
   {
     path: 'cars/:id/form',
     title: getPageTitle('Formularz'),
-    component: Cars.FormView,
+    component: CarsFormView,
   },
   {
     path: 'cars/summary',
     title: getPageTitle('Podsumowanie'),
-    component: Cars.SummaryView,
+    component: CarsSummaryView,
   },
   {
     path: '**',
     title: getPageTitle('404'),
-    component: Errors.PageNotFoundView,
+    component: ErrorsPageNotFoundView,
   },
 ];
 

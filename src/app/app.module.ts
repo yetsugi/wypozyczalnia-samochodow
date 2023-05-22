@@ -5,18 +5,24 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import * as Cars from './views/cars/cars';
-import * as Errors from './views/errors/errors';
+import { IndexComponent as CarsIndexView } from './views/cars/index/index.component';
+import { FormComponent as CarsFormView } from './views/cars/form/form.component';
+import { SummaryComponent as CarsSummaryView } from './views/cars/summary/summary.component';
+import { PageNotFoundComponent as ErrorsPageNotFoundView } from './views/errors/page-not-found/page-not-found.component';
+
+import { ListComponent as CarsListComponent } from './views/components/cars/list/list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
 
-    Cars.IndexView,
-    Cars.FormView,
-    Cars.SummaryView,
+    CarsIndexView,
+    CarsFormView,
+    CarsSummaryView,
 
-    Errors.PageNotFoundView,
+    ErrorsPageNotFoundView,
+
+    CarsListComponent,
   ],
   imports: [BrowserModule, HttpClientModule, AppRoutingModule],
   providers: [],

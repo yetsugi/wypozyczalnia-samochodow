@@ -4,7 +4,7 @@ import { Car } from 'src/app/models/car';
 import { CarService } from 'src/app/services/car.service';
 
 @Component({
-  selector: 'app-index',
+  selector: 'app-cars-index-view',
   templateUrl: './index.component.html',
 })
 export class IndexComponent implements OnInit, OnDestroy {
