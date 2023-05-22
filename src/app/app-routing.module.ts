@@ -18,7 +18,7 @@ const routes: Routes = [
     component: CarsIndexView,
   },
   {
-    path: 'cars/:id/form',
+    path: 'cars/form',
     title: getPageTitle('Formularz'),
     component: CarsFormView,
   },

@@ -1,5 +1,6 @@
 <ul *ngIf="cars">
   <li *ngFor="let car of cars">
-    <a [routerLink]="['/cars', car.id, 'form']">{{ car.model }}</a>
+    <div>{{ car | json }}</div>
+    <button (click)="selectCar(car)">Wybierz</button>
   </li>
 </ul>

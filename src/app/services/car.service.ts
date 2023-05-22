@@ -12,4 +12,8 @@ export class CarService {
   getCars(): Observable<Car[]> {
     return this.http.get<Car[]>('http://localhost:3000/cars');
   }
+
+  getCarById(carId: number): Observable<Car> {
+    return this.http.get<Car>(`http://localhost:3000/cars/${carId}`);
+  }
 }
