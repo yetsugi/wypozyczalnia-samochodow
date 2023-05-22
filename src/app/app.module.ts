@@ -1,16 +1,12 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import * as Cars from './views/cars/cars';
 import * as Errors from './views/errors/errors';
-
-import { IndexComponent } from './views/cars/index/index.component';
-import { FormComponent } from './views/cars/form/form.component';
-import { SummaryComponent } from './views/cars/summary/summary.component';
-import { PageNotFoundComponent } from './views/errors/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -20,13 +16,10 @@ import { PageNotFoundComponent } from './views/errors/page-not-found/page-not-fo
     Cars.FormView,
     Cars.SummaryView,
 
-    Errors.PageNotFoundView
+    Errors.PageNotFoundView,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
+  imports: [BrowserModule, HttpClientModule, AppRoutingModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

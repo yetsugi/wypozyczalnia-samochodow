@@ -16,7 +16,7 @@ const routes: Routes = [
     component: Cars.IndexView,
   },
   {
-    path: 'cars/form',
+    path: 'cars/:id/form',
     title: getPageTitle('Formularz'),
     component: Cars.FormView,
   },
@@ -38,6 +38,6 @@ function getPageTitle(page: string): string {
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
