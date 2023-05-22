@@ -1,4 +1,6 @@
-import { NgModule } from '@angular/core';
+import '@angular/common/locales/global/pl';
+
+import { DEFAULT_CURRENCY_CODE, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -25,7 +27,10 @@ import { ListComponent as CarsListComponent } from './views/components/cars/list
     CarsListComponent,
   ],
   imports: [BrowserModule, HttpClientModule, AppRoutingModule],
-  providers: [],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'pl' },
+    { provide: DEFAULT_CURRENCY_CODE, useValue: 'zł' },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

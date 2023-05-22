@@ -1,6 +1,7 @@
 <ul *ngIf="cars">
   <li *ngFor="let car of cars">
     <div>{{ car | json }}</div>
+    <div>{{ car.price | currency }}</div>
     <button (click)="selectCar(car)">Wybierz</button>
   </li>
 </ul>
