@@ -5,8 +5,10 @@ import { IndexComponent as CarsIndexView } from './views/cars/index/index.compon
 import { FormComponent as CarsFormView } from './views/cars/form/form.component';
 import { SummaryComponent as CarsSummaryView } from './views/cars/summary/summary.component';
 import { PageNotFoundComponent as ErrorsPageNotFoundView } from './views/errors/page-not-found/page-not-found.component';
+
 import { hasOrderCarIdGuard } from './guards/can-activate/has-order-car-id.guard';
 import { hasCompleteOrderGuard } from './guards/can-activate/has-complete-order.guard';
+import { doesntHaveOrderIdGuard } from './guards/can-activate/doesnt-have-order-id.guard';
 
 const routes: Routes = [
   {
@@ -23,7 +25,7 @@ const routes: Routes = [
     path: 'cars/form',
     title: getPageTitle('Formularz'),
     component: CarsFormView,
-    canActivate: [hasOrderCarIdGuard],
+    canActivate: [hasOrderCarIdGuard, doesntHaveOrderIdGuard],
   },
   {
     path: 'cars/summary',

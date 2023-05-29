@@ -26,7 +26,7 @@ export class OrderService {
     sessionStorage.setItem(this.KEY, JSON.stringify(order));
   }
 
-  removeOrder(): void {
+  clearOrder(): void {
     sessionStorage.removeItem(this.KEY);
   }
 
@@ -52,6 +52,12 @@ export class OrderService {
     order.formData = orderFormData;
 
     this.saveOrder(order);
+  }
+
+  hasId(): boolean {
+    const order = this.getOrder();
+
+    return Boolean(order && order.id);
   }
 
   hasCarId(): boolean {

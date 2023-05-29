@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+
 import { Car } from 'src/app/models/car';
+
 import { CarService } from 'src/app/services/car.service';
 import { OrderService } from 'src/app/services/order.service';
 
@@ -18,7 +20,6 @@ export class SummaryComponent implements OnInit {
 
   ngOnInit(): void {
     const order = this.orderService.getOrder()!;
-    this.orderService.removeOrder();
 
     this.car$ = this.carService.getCarById(order.carId!);
   }
