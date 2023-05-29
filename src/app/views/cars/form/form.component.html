@@ -1,8 +1,8 @@
 <p>form works!</p>
 
-<div>{{ car | json }}</div>
+<div *ngIf="car$ | async as car">{{ car | json }}</div>
 
-<form [formGroup]="orderForm">
+<form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
   <label for="full-name">Imię i nazwisko</label>
   <input id="full-name" type="text" formControlName="fullName" />
 

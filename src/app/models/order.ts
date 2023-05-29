@@ -1,7 +1,7 @@
+import { OrderFormData } from './order-form-data';
+
 export interface Order {
+  id?: number;
   carId?: number;
-  fullName?: string | null;
-  phoneNumber?: string | null;
-  email?: string | null;
-  paymentMethod?: string | null;
+  formData?: OrderFormData;
 }

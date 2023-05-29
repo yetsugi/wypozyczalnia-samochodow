@@ -1,3 +1,3 @@
 <h1>Index</h1>
 
-<app-cars-list [cars]="cars" />
+<app-cars-list *ngIf="cars$ | async as cars" [cars]="cars" />

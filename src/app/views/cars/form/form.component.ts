@@ -1,9 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 import { Car } from 'src/app/models/car';
+import { OrderFormData } from 'src/app/models/order-form-data';
 
 import { CarService } from 'src/app/services/car.service';
 import { OrderService } from 'src/app/services/order.service';
@@ -13,8 +14,10 @@ import { OrderService } from 'src/app/services/order.service';
   templateUrl: './form.component.html',
 })
 export class FormComponent implements OnInit, OnDestroy {
-  car?: Car;
-  car$?: Subscription;
+  car$!: Observable<Car>;
+
+  orderFormValueChanges$!: Subscription;
+  orderFormPostOrder$?: Subscription;
 
   orderForm = this.formBuilder.group({
     fullName: [
@@ -28,47 +31,55 @@ export class FormComponent implements OnInit, OnDestroy {
     email: ['', [Validators.required, Validators.email]],
     paymentMethod: ['', [Validators.required]],
   });
-  orderForm$?: Subscription;
 
   constructor(
     private readonly orderService: OrderService,
     private readonly carService: CarService,
-    private readonly router: Router,
-    private readonly formBuilder: FormBuilder
+    private readonly formBuilder: FormBuilder,
+    private readonly router: Router
   ) {}
 
   ngOnInit(): void {
-    const order = this.orderService.getOrder();
+    const order = this.orderService.getOrder()!;
 
-    if (!order) {
-      this.router.navigate(['404'], { skipLocationChange: true });
-      return;
+    this.car$ = this.carService.getCarById(order.carId!);
+
+    if (order.formData) {
+      this.restoreFormData(order.formData);
     }
 
-    this.car$ = this.carService
-      .getCarById(order.carId!)
-      .subscribe((car) => (this.car = car));
-
-    this.orderForm.setValue({
-      fullName: order.fullName ?? null,
-      phoneNumber: order.phoneNumber ?? null,
-      email: order.email ?? null,
-      paymentMethod: order.paymentMethod ?? null,
-    });
-
-    this.orderForm$ = this.orderForm.valueChanges.subscribe((form) =>
-      this.orderService.saveOrder({
-        carId: order.carId,
-        fullName: form.fullName,
-        phoneNumber: form.phoneNumber,
-        email: form.email,
-        paymentMethod: form.paymentMethod,
-      })
-    );
+    this.orderFormValueChanges$ = this.saveFormLocallyOnValueChanges();
   }
 
   ngOnDestroy(): void {
-    this.car$?.unsubscribe();
-    this.orderForm$?.unsubscribe();
+    this.orderFormValueChanges$.unsubscribe();
+
+    this.orderFormPostOrder$?.unsubscribe();
+  }
+
+  onSubmit(): void {
+    this.orderFormPostOrder$ = this.orderService
+      .postOrder()
+      .subscribe(() => this.router.navigate(['cars/summary']));
+  }
+
+  private restoreFormData(orderFormData: OrderFormData): void {
+    this.orderForm.setValue({
+      fullName: orderFormData.fullName,
+      phoneNumber: orderFormData.phoneNumber,
+      email: orderFormData.email,
+      paymentMethod: orderFormData.paymentMethod,
+    });
+  }
+
+  private saveFormLocallyOnValueChanges(): Subscription {
+    return this.orderForm.valueChanges.subscribe((form) => {
+      this.orderService.setFormData({
+        fullName: form.fullName ?? '',
+        phoneNumber: form.phoneNumber ?? '',
+        email: form.email ?? '',
+        paymentMethod: form.paymentMethod ?? '',
+      });
+    });
   }
 }

@@ -1,5 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Car } from 'src/app/models/car';
 import { CarService } from 'src/app/services/car.service';
 import { OrderService } from 'src/app/services/order.service';
@@ -8,9 +8,8 @@ import { OrderService } from 'src/app/services/order.service';
   selector: 'app-cars-index-view',
   templateUrl: './index.component.html',
 })
-export class IndexComponent implements OnInit, OnDestroy {
-  cars!: Car[];
-  getCars$!: Subscription;
+export class IndexComponent implements OnInit {
+  cars$!: Observable<Car[]>;
 
   constructor(
     private readonly orderService: OrderService,
@@ -20,12 +19,6 @@ export class IndexComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.orderService.removeOrder();
 
-    this.getCars$ = this.carService
-      .getCars()
-      .subscribe((cars) => (this.cars = cars));
-  }
-
-  ngOnDestroy(): void {
-    this.getCars$.unsubscribe();
+    this.cars$ = this.carService.getCars();
   }
 }
