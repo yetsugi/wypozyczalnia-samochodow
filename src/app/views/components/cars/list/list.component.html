@@ -1,5 +1,9 @@
 <ul class="flex flex-col gap-3">
   <li *ngFor="let car of cars">
-    <app-cars-info [car]="car" (click)="selectCar(car)" />
+    <app-cars-info
+      [car]="car"
+      (click)="selectCar(car)"
+      class="cursor-pointer"
+    />
   </li>
 </ul>
