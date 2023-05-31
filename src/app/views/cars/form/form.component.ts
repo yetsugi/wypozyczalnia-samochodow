@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable, Subscription, forkJoin } from 'rxjs';
+import { Observable, Subscription, delay, forkJoin } from 'rxjs';
 
 import { Car } from 'src/app/models/car';
 import { OrderFormData } from 'src/app/models/order-form-data';
@@ -63,9 +63,9 @@ export class FormComponent implements OnInit, OnDestroy {
     this.orderFormPostOrder$ = forkJoin({
       order: this.orderService.postOrder(),
       car: this.carService.markCarAsUnavailable(order.carId!),
-    }).subscribe(() => {
-      setTimeout(() => this.router.navigate(['cars/summary']), 500);
-    });
+    })
+      .pipe(delay(500))
+      .subscribe(() => this.router.navigate(['cars/summary']));
   }
 
   private restoreFormData(orderFormData: OrderFormData): void {
