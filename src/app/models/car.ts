@@ -3,9 +3,8 @@ export interface Car {
   brand: string;
   model: string;
   year: number;
-  fuel: 'Hybryda' | 'Diesel' | 'Benzyna';
+  fuel: string;
   enginePower: number;
-  mileage: number;
   price: number;
   img: string;
   available: boolean;

@@ -1,7 +1,5 @@
-<ul *ngIf="cars">
+<ul class="flex flex-col gap-3">
   <li *ngFor="let car of cars">
-    <div>{{ car | json }}</div>
-    <div>{{ car.price | currency }}</div>
-    <button (click)="selectCar(car)">Wybierz</button>
+    <app-cars-info [car]="car" (click)="selectCar(car)" />
   </li>
 </ul>

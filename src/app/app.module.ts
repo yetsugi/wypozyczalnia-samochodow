@@ -15,6 +15,7 @@ import { SummaryComponent as CarsSummaryView } from './views/cars/summary/summar
 import { PageNotFoundComponent as ErrorsPageNotFoundView } from './views/errors/page-not-found/page-not-found.component';
 
 import { ListComponent as CarsListComponent } from './views/components/cars/list/list.component';
+import { InfoComponent as CarsInfoComponent } from './views/components/cars/info/info.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { ListComponent as CarsListComponent } from './views/components/cars/list
     ErrorsPageNotFoundView,
 
     CarsListComponent,
+    CarsInfoComponent,
   ],
   imports: [
     BrowserModule,

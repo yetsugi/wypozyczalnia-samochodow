@@ -1,0 +1,39 @@
+<article class="flex bg-white rounded-lg overflow-hidden">
+  <div>
+    <img [src]="car.img" [alt]="car.brand + ' ' + car.model + '- zdjęcie'" />
+  </div>
+
+  <div class="flex flex-col justify-between px-2.5 py-2 grow">
+    <h1 class="font-bold">{{ car.brand }} {{ car.model }}</h1>
+
+    <p>
+      <span
+        *ngIf="car.available; then carAvailable; else carUnavailable"
+      ></span>
+    </p>
+
+    <ng-template #carAvailable>
+      <span
+        class="inline-flex items-center rounded-lg bg-green-100 px-2 py-1 text-xs font-bold text-green-700"
+      >
+        Dostępny
+      </span>
+    </ng-template>
+
+    <ng-template #carUnavailable>
+      <span
+        class="inline-flex items-center rounded-lg bg-red-100 px-2 py-1 text-xs font-bold text-red-700"
+      >
+        Niedostępny
+      </span>
+    </ng-template>
+
+    <div class="text-gray-600">
+      <p>{{ car.year }}</p>
+      <p>{{ car.fuel }}</p>
+      <p>{{ car.enginePower }}</p>
+    </div>
+
+    <p class="text-right font-bold">{{ car.price | currency }}</p>
+  </div>
+</article>
