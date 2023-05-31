@@ -14,24 +14,40 @@
 
     <ng-template #carAvailable>
       <span
-        class="inline-flex items-center rounded-lg bg-green-100 px-2 py-1 text-xs font-bold text-green-700"
+        class="rounded-lg bg-green-100 px-2 py-1 text-xs font-bold text-green-700"
       >
+        <i class="bi bi-check"></i>
+
         Dostępny
       </span>
     </ng-template>
 
     <ng-template #carUnavailable>
       <span
-        class="inline-flex items-center rounded-lg bg-red-100 px-2 py-1 text-xs font-bold text-red-700"
+        class="rounded-lg bg-red-100 px-2 py-1 text-xs font-bold text-red-700"
       >
+        <i class="bi bi-x"></i>
+
         Niedostępny
       </span>
     </ng-template>
 
     <div class="text-gray-600">
-      <p>{{ car.year }}</p>
-      <p>{{ car.fuel }}</p>
-      <p>{{ car.enginePower }}</p>
+      <p>
+        <i class="bi bi-calendar-heart"></i>
+
+        {{ car.year }}
+      </p>
+      <p>
+        <i class="bi bi-fuel-pump"></i>
+
+        {{ car.fuel }}
+      </p>
+      <p>
+        <i class="bi bi-gear"></i>
+
+        {{ car.enginePower }} KM
+      </p>
     </div>
 
     <p class="text-right font-bold">{{ car.price | currency }}</p>
