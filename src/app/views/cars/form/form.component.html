@@ -15,24 +15,42 @@
 <form
   [formGroup]="orderForm"
   (ngSubmit)="onSubmit()"
-  class="py-2 px-3 bg-white rounded-lg"
+  class="flex flex-col gap-4 py-2 px-3 border rounded-lg bg-white border-gray-300"
 >
-  <fieldset>
+  <fieldset class="flex flex-col gap-2">
     <legend class="font-bold">Podstawowe informacje</legend>
 
-    <div class="flex flex-col">
+    <div class="flex flex-col gap-0.5">
       <label for="full-name">Imię i nazwisko</label>
-      <input id="full-name" type="text" formControlName="fullName" />
+      <input
+        id="full-name"
+        type="text"
+        formControlName="fullName"
+        placeholder="Podaj imię i nazwisko"
+        class="rounded-lg bg-gray-300 focus:border-blue-500 focus:ring-blue-500"
+      />
     </div>
 
-    <div class="flex flex-col">
+    <div class="flex flex-col gap-0.5">
       <label for="phone-number">Telefon</label>
-      <input id="phone-number" type="tel" formControlName="phoneNumber" />
+      <input
+        id="phone-number"
+        type="tel"
+        formControlName="phoneNumber"
+        placeholder="Podaj numer telefonu"
+        class="rounded-lg bg-gray-300 focus:border-blue-500 focus:ring-blue-500"
+      />
     </div>
 
-    <div class="flex flex-col">
+    <div class="flex flex-col gap-0.5">
       <label for="email">Email</label>
-      <input id="email" type="email" formControlName="email" />
+      <input
+        id="email"
+        type="email"
+        formControlName="email"
+        placeholder="Podaj adres email"
+        class="rounded-lg bg-gray-300 focus:border-blue-500 focus:ring-blue-500"
+      />
     </div>
   </fieldset>
 
@@ -41,24 +59,40 @@
     od do
   </fieldset>
 
-  <fieldset>
-    <legend class="font-bold">Płatność</legend>
+  <fieldset class="flex flex-col gap-2">
+    <legend class="mb-2 font-bold">Metoda płatności</legend>
 
-    <label for="on-site-payment">Przy odbiorze</label>
-    <input
-      id="on-site-payment"
-      type="radio"
-      value="on-site"
-      formControlName="paymentMethod"
-    />
+    <div
+      (click)="onSitePaymentRadio.click(); onSitePaymentRadio.focus()"
+      class="flex justify-between items-center gap-4 form-input rounded-lg bg-gray-300 focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500"
+    >
+      <label for="on-site-payment">Przy odbiorze</label>
 
-    <label for="transfer-payment">Przelew</label>
-    <input
-      id="transfer-payment"
-      type="radio"
-      value="transfer"
-      formControlName="paymentMethod"
-    />
+      <input
+        #onSitePaymentRadio
+        id="on-site-payment"
+        type="radio"
+        value="on-site"
+        formControlName="paymentMethod"
+        class="text-blue-500 focus:ring-offset-0 focus:ring-1 focus:ring-blue-700"
+      />
+    </div>
+
+    <div
+      (click)="transferPaymentRadio.click(); transferPaymentRadio.focus()"
+      class="flex justify-between items-center gap-4 form-input rounded-lg bg-gray-300 focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500"
+    >
+      <label for="transfer-payment">Przelew</label>
+
+      <input
+        #transferPaymentRadio
+        id="transfer-payment"
+        type="radio"
+        value="transfer"
+        formControlName="paymentMethod"
+        class="text-blue-500 focus:ring-offset-0 focus:ring-1 focus:ring-blue-700"
+      />
+    </div>
   </fieldset>
 
   <p class="flex justify-between font-bold">
@@ -66,5 +100,11 @@
     <span>kwota</span>
   </p>
 
-  <button type="submit" [disabled]="!orderForm.valid">Złóż zamówienie</button>
+  <button
+    type="submit"
+    [disabled]="!orderForm.valid"
+    class="w-full p-3 rounded-lg text-center font-bold text-white bg-blue-500 border border-blue-700"
+  >
+    Złóż zamówienie
+  </button>
 </form>
