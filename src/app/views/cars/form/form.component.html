@@ -5,7 +5,12 @@
 
 <h1 class="my-3 text-3xl font-bold">Zamówienie</h1>
 
-<app-cars-info *ngIf="car$ | async as car" [car]="car" class="block mb-3" />
+<app-cars-info
+  *ngIf="car$ | async as car"
+  [car]="car"
+  [showAvailability]="false"
+  class="block mb-3"
+/>
 
 <form
   [formGroup]="orderForm"

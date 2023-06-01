@@ -8,4 +8,7 @@ import { Car } from 'src/app/models/car';
 export class InfoComponent {
   @Input()
   car!: Car;
+
+  @Input()
+  showAvailability: boolean = true;
 }
