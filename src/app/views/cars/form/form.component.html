@@ -28,29 +28,86 @@
         formControlName="fullName"
         placeholder="Podaj imię i nazwisko"
         class="rounded-lg bg-gray-300 focus:border-blue-500 focus:ring-blue-500"
+        [ngClass]="{
+          'border-red-500 ring-1 ring-red-500':
+            orderForm.controls.fullName.touched &&
+            orderForm.controls.fullName.invalid
+        }"
       />
+
+      <div
+        *ngIf="
+          orderForm.controls.fullName.touched &&
+          orderForm.controls.fullName.invalid
+        "
+        class="text-xs text-red-500"
+      >
+        <p *ngIf="orderForm.controls.fullName.hasError('required')">
+          To pole musi być wypełnione
+        </p>
+        <p *ngIf="orderForm.controls.fullName.hasError('pattern')">
+          Imię i nazwisko musi być oddzielone spacją
+        </p>
+      </div>
     </div>
 
     <div class="flex flex-col gap-0.5">
       <label for="phone-number">Telefon</label>
+
       <input
         id="phone-number"
         type="tel"
         formControlName="phoneNumber"
         placeholder="Podaj numer telefonu"
         class="rounded-lg bg-gray-300 focus:border-blue-500 focus:ring-blue-500"
+        [ngClass]="{
+          'border-red-500 ring-1 ring-red-500':
+            orderForm.controls.phoneNumber.touched &&
+            orderForm.controls.phoneNumber.invalid
+        }"
       />
+
+      <div
+        *ngIf="
+          orderForm.controls.phoneNumber.touched &&
+          orderForm.controls.phoneNumber.invalid
+        "
+        class="text-xs text-red-500"
+      >
+        <p *ngIf="orderForm.controls.phoneNumber.hasError('required')">
+          To pole musi być wypełnione
+        </p>
+      </div>
     </div>
 
     <div class="flex flex-col gap-0.5">
       <label for="email">Email</label>
+
       <input
         id="email"
         type="email"
         formControlName="email"
         placeholder="Podaj adres email"
         class="rounded-lg bg-gray-300 focus:border-blue-500 focus:ring-blue-500"
+        [ngClass]="{
+          'border-red-500 ring-1 ring-red-500':
+            orderForm.controls.email.touched && orderForm.controls.email.invalid
+        }"
       />
+
+      <div
+        *ngIf="
+          orderForm.controls.email.touched && orderForm.controls.email.invalid
+        "
+        class="text-xs text-red-500"
+      >
+        <p *ngIf="orderForm.controls.email.hasError('required')">
+          To pole musi być wypełnione
+        </p>
+        <p *ngIf="orderForm.controls.email.hasError('email')">
+          Adres email nie jest poprawny
+        </p>
+      </div>
     </div>
   </fieldset>
 
@@ -63,8 +120,25 @@
     <legend class="mb-2 font-bold">Metoda płatności</legend>
 
     <div
+      *ngIf="
+        orderForm.controls.paymentMethod.touched &&
+        orderForm.controls.paymentMethod.invalid
+      "
+      class="mb-2 text-xs text-red-500"
+    >
+      <p *ngIf="orderForm.controls.paymentMethod.hasError('required')">
+        To pole musi być wypełnione
+      </p>
+    </div>
+
+    <div
       (click)="onSitePaymentRadio.click(); onSitePaymentRadio.focus()"
       class="flex justify-between items-center gap-4 form-input rounded-lg bg-gray-300 focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500"
+      [ngClass]="{
+        'border-red-500 ring-1 ring-red-500':
+          orderForm.controls.paymentMethod.touched &&
+          orderForm.controls.paymentMethod.invalid
+      }"
     >
       <label for="on-site-payment">Przy odbiorze</label>
 
@@ -75,12 +149,22 @@
         value="on-site"
         formControlName="paymentMethod"
         class="text-blue-500 focus:ring-offset-0 focus:ring-1 focus:ring-blue-700"
+        [ngClass]="{
+          'border-red-500 ring-1 ring-red-500':
+            orderForm.controls.paymentMethod.touched &&
+            orderForm.controls.paymentMethod.invalid
+        }"
       />
     </div>
 
     <div
       (click)="transferPaymentRadio.click(); transferPaymentRadio.focus()"
       class="flex justify-between items-center gap-4 form-input rounded-lg bg-gray-300 focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500"
+      [ngClass]="{
+        'border-red-500 ring-1 ring-red-500':
+          orderForm.controls.paymentMethod.touched &&
+          orderForm.controls.paymentMethod.invalid
+      }"
     >
       <label for="transfer-payment">Przelew</label>
 
@@ -91,6 +175,11 @@
         value="transfer"
         formControlName="paymentMethod"
         class="text-blue-500 focus:ring-offset-0 focus:ring-1 focus:ring-blue-700"
+        [ngClass]="{
+          'border-red-500 ring-1 ring-red-500':
+            orderForm.controls.paymentMethod.touched &&
+            orderForm.controls.paymentMethod.invalid
+        }"
       />
     </div>
   </fieldset>

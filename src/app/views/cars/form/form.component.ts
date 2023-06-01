@@ -75,6 +75,8 @@ export class FormComponent implements OnInit, OnDestroy {
       email: orderFormData.email,
       paymentMethod: orderFormData.paymentMethod,
     });
+
+    this.orderForm.markAllAsTouched();
   }
 
   private saveFormLocallyOnValueChanges(): Subscription {

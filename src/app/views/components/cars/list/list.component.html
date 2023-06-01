@@ -3,7 +3,7 @@
     <app-cars-info
       [car]="car"
       (click)="selectCar(car)"
-      class="cursor-pointer"
+      [ngClass]="car.available ? 'cursor-pointer' : 'cursor-not-allowed'"
     />
   </li>
 </ul>
