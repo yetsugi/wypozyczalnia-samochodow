@@ -16,6 +16,7 @@ import { PageNotFoundComponent as ErrorsPageNotFoundView } from './views/errors/
 
 import { ListComponent as CarsListComponent } from './views/components/cars/list/list.component';
 import { InfoComponent as CarsInfoComponent } from './views/components/cars/info/info.component';
+import { FlatpickrModule } from 'angularx-flatpickr';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { InfoComponent as CarsInfoComponent } from './views/components/cars/info
     HttpClientModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    FlatpickrModule.forRoot(),
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pl' },

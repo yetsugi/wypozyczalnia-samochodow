@@ -55,6 +55,14 @@ export class OrderService {
     this.saveOrder(order);
   }
 
+  setTotalPrice(totalPrice: number): void {
+    const order = this.getOrder() ?? {};
+
+    order.totalPrice = totalPrice;
+
+    this.saveOrder(order);
+  }
+
   hasId(): boolean {
     const order = this.getOrder();
 
@@ -70,6 +78,8 @@ export class OrderService {
   hasAllProperties(): boolean {
     const order = this.getOrder();
 
-    return Boolean(order && order.id && order.carId && order.formData);
+    return Boolean(
+      order && order.id && order.carId && order.formData && order.totalPrice
+    );
   }
 }

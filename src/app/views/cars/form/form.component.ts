@@ -1,7 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Observable, Subscription, delay, forkJoin } from 'rxjs';
+import { Subscription, delay, forkJoin } from 'rxjs';
+
+import { FlatpickrDefaultsInterface } from 'angularx-flatpickr';
+import { Polish } from 'flatpickr/dist/l10n/pl.js';
 
 import { Car } from 'src/app/models/car';
 import { OrderFormData } from 'src/app/models/order-form-data';
@@ -9,15 +12,28 @@ import { OrderFormData } from 'src/app/models/order-form-data';
 import { CarService } from 'src/app/services/car.service';
 import { OrderService } from 'src/app/services/order.service';
 
+import { nowAddDaysFormatted } from 'src/app/utils';
+
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
 })
 export class FormComponent implements OnInit, OnDestroy {
-  car$!: Observable<Car>;
+  car?: Car;
+  totalPrice: number = 0;
 
-  orderFormValueChanges$!: Subscription;
-  orderFormPostOrder$?: Subscription;
+  carSub!: Subscription;
+  orderFormValueChangesSub!: Subscription;
+  orderFormPostOrderSub?: Subscription;
+
+  datePickerOptions: FlatpickrDefaultsInterface = {
+    locale: Polish,
+    minDate: nowAddDaysFormatted(1),
+    maxDate: nowAddDaysFormatted(15),
+    dateFormat: 'd-m-Y',
+    inline: true,
+    mode: 'range',
+  };
 
   orderForm = this.formBuilder.group({
     fullName: [
@@ -30,6 +46,7 @@ export class FormComponent implements OnInit, OnDestroy {
     phoneNumber: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
     paymentMethod: ['', [Validators.required]],
+    dateRange: ['', [Validators.required]],
   });
 
   constructor(
@@ -42,30 +59,46 @@ export class FormComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     const order = this.orderService.getOrder()!;
 
-    this.car$ = this.carService.getCarById(order.carId!);
+    this.carSub = this.carService
+      .getCarById(order.carId!)
+      .subscribe((car) => (this.car = car));
 
     if (order.formData) {
       this.restoreFormData(order.formData);
+
+      this.totalPrice = order.totalPrice ?? 0;
     }
 
-    this.orderFormValueChanges$ = this.saveFormLocallyOnValueChanges();
+    this.orderFormValueChangesSub = this.saveFormLocallyOnValueChanges();
   }
 
   ngOnDestroy(): void {
-    this.orderFormValueChanges$.unsubscribe();
+    this.orderFormValueChangesSub.unsubscribe();
 
-    this.orderFormPostOrder$?.unsubscribe();
+    this.orderFormPostOrderSub?.unsubscribe();
   }
 
   onSubmit(): void {
     const order = this.orderService.getOrder()!;
 
-    this.orderFormPostOrder$ = forkJoin({
+    this.orderFormPostOrderSub = forkJoin({
       order: this.orderService.postOrder(),
       car: this.carService.markCarAsUnavailable(order.carId!),
     })
       .pipe(delay(500))
       .subscribe(() => this.router.navigate(['cars/summary']));
+  }
+
+  onDateRangeChange(e: {
+    selectedDates: Date[];
+    dateString: string;
+    instance: any;
+  }): void {
+    const rentDays = this.calculateRentDays(e.selectedDates);
+
+    this.totalPrice = this.car!.price * rentDays;
+
+    this.orderService.setTotalPrice(this.totalPrice);
   }
 
   private restoreFormData(orderFormData: OrderFormData): void {
@@ -74,6 +107,7 @@ export class FormComponent implements OnInit, OnDestroy {
       phoneNumber: orderFormData.phoneNumber,
       email: orderFormData.email,
       paymentMethod: orderFormData.paymentMethod,
+      dateRange: orderFormData.dateRange,
     });
 
     this.orderForm.markAllAsTouched();
@@ -86,7 +120,20 @@ export class FormComponent implements OnInit, OnDestroy {
         phoneNumber: form.phoneNumber ?? '',
         email: form.email ?? '',
         paymentMethod: form.paymentMethod ?? '',
+        dateRange: form.dateRange ?? '',
       });
     });
+  }
+
+  private calculateRentDays(dates: Date[]): number {
+    if (dates.length === 1) {
+      return 1;
+    }
+
+    return (
+      Math.floor(
+        (dates[1].getTime() - dates[0].getTime()) / (1000 * 60 * 60 * 24)
+      ) + 1
+    );
   }
 }

@@ -3,4 +3,5 @@ export interface OrderFormData {
   phoneNumber: string;
   email: string;
   paymentMethod: string;
+  dateRange: string;
 }
