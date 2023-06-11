@@ -1,9 +1,17 @@
-<ul class="flex flex-col gap-3">
-  <li *ngFor="let car of cars">
-    <app-cars-info
-      [car]="car"
-      (click)="selectCar(car)"
-      [ngClass]="car.available ? 'cursor-pointer' : 'cursor-not-allowed'"
-    />
-  </li>
-</ul>
+<div *ngIf="cars.length > 0; then list; else noResults"></div>
+
+<ng-template #list>
+  <ul class="flex flex-col gap-3">
+    <li *ngFor="let car of cars">
+      <app-cars-info
+        [car]="car"
+        (click)="selectCar(car)"
+        [ngClass]="car.available ? 'cursor-pointer' : 'cursor-not-allowed'"
+      />
+    </li>
+  </ul>
+</ng-template>
+
+<ng-template #noResults>
+  <h2 class="text-lg font-bold text-center mt-6">Brak wyników</h2>
+</ng-template>
