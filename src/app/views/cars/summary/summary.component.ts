@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { Car } from 'src/app/models/car';
@@ -11,7 +17,10 @@ import { OrderService } from 'src/app/services/order.service';
   selector: 'app-summary',
   templateUrl: './summary.component.html',
 })
-export class SummaryComponent implements OnInit {
+export class SummaryComponent implements OnInit, AfterViewInit {
+  @ViewChild('view')
+  view!: ElementRef;
+
   car$!: Observable<Car>;
 
   order!: Order;
@@ -25,6 +34,10 @@ export class SummaryComponent implements OnInit {
     this.order = this.orderService.getOrder()!;
 
     this.car$ = this.carService.getCarById(this.order.carId!);
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => this.view.nativeElement.classList.add('opacity-100'));
   }
 
   getPaymentMethodLabel(): string {

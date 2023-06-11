@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { Car } from 'src/app/models/car';
@@ -10,7 +16,10 @@ import { OrderService } from 'src/app/services/order.service';
   selector: 'app-cars-index-view',
   templateUrl: './index.component.html',
 })
-export class IndexComponent implements OnInit {
+export class IndexComponent implements OnInit, AfterViewInit {
+  @ViewChild('view')
+  view!: ElementRef;
+
   cars$!: Observable<Car[]>;
 
   brandFilterOptions$!: Observable<{ label: string; value: string }[]>;
@@ -32,6 +41,10 @@ export class IndexComponent implements OnInit {
 
     this.cars$ = this.carService.getCars();
     this.brandFilterOptions$ = this.carService.getBrandOptions();
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => this.view.nativeElement.classList.add('opacity-100'));
   }
 
   onBrandFilterOptionChange(e: Event) {

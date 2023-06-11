@@ -1,4 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription, delay, forkJoin } from 'rxjs';
@@ -18,7 +25,10 @@ import { nowAddDaysFormatted } from 'src/app/utils';
   selector: 'app-form',
   templateUrl: './form.component.html',
 })
-export class FormComponent implements OnInit, OnDestroy {
+export class FormComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('view')
+  view!: ElementRef;
+
   car?: Car;
   totalPrice: number = 0;
 
@@ -72,7 +82,13 @@ export class FormComponent implements OnInit, OnDestroy {
     this.orderFormValueChangesSub = this.saveFormLocallyOnValueChanges();
   }
 
+  ngAfterViewInit(): void {
+    setTimeout(() => this.view.nativeElement.classList.add('opacity-100'));
+  }
+
   ngOnDestroy(): void {
+    this.carSub.unsubscribe();
+
     this.orderFormValueChangesSub.unsubscribe();
 
     this.orderFormPostOrderSub?.unsubscribe();
