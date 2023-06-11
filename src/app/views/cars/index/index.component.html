@@ -1,6 +1,6 @@
 <h1 class="text-3xl font-bold">Samochody</h1>
 
-<div class="flex gap-1 my-3">
+<div class="flex flex-col gap-1 my-3 md:flex-row">
   <app-select
     *ngIf="brandFilterOptions$ | async as brandFilterOptions"
     label="Marka"
