@@ -1,0 +1,13 @@
+<label class="flex flex-col">
+  <span>{{ label }}</span>
+
+  <select
+    class="rounded-lg bg-gray-300 focus:border-blue-500 focus:ring-blue-500"
+  >
+    <option value="">Wszystkie</option>
+
+    <option *ngFor="let option of options" [value]="option.value">
+      {{ option.label }}
+    </option>
+  </select>
+</label>

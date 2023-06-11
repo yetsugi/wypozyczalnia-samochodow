@@ -13,6 +13,15 @@ import { OrderService } from 'src/app/services/order.service';
 export class IndexComponent implements OnInit {
   cars$!: Observable<Car[]>;
 
+  brandFilterOptions$!: Observable<{ label: string; value: string }[]>;
+
+  availabilityFilterOptions: { label: string; value: boolean }[] = [
+    { label: 'Dostępny', value: true },
+    { label: 'Niedostępny', value: false },
+  ];
+
+  filters: { name: string; value: string | boolean }[] = [];
+
   constructor(
     private readonly orderService: OrderService,
     private readonly carService: CarService
@@ -22,5 +31,32 @@ export class IndexComponent implements OnInit {
     this.orderService.clearOrder();
 
     this.cars$ = this.carService.getCars();
+    this.brandFilterOptions$ = this.carService.getBrandOptions();
+  }
+
+  onBrandFilterOptionChange(e: Event) {
+    const $target = e.target as HTMLSelectElement;
+
+    if ($target.value) {
+      this.filters.push({ name: 'brand', value: $target.value });
+    } else {
+      this.filters = this.filters.filter((filter) => filter.name !== 'brand');
+    }
+
+    this.cars$ = this.carService.getCars(this.filters);
+  }
+
+  onAvailabilityFilterOptionChange(e: Event) {
+    const $target = e.target as HTMLSelectElement;
+
+    if ($target.value) {
+      this.filters.push({ name: 'available', value: $target.value });
+    } else {
+      this.filters = this.filters.filter(
+        (filter) => filter.name !== 'available'
+      );
+    }
+
+    this.cars$ = this.carService.getCars(this.filters);
   }
 }

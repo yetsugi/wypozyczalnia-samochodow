@@ -6,6 +6,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FlatpickrModule } from 'angularx-flatpickr';
 
 import { AppComponent } from './app.component';
 
@@ -16,7 +17,8 @@ import { PageNotFoundComponent as ErrorsPageNotFoundView } from './views/errors/
 
 import { ListComponent as CarsListComponent } from './views/components/cars/list/list.component';
 import { InfoComponent as CarsInfoComponent } from './views/components/cars/info/info.component';
-import { FlatpickrModule } from 'angularx-flatpickr';
+
+import { SelectComponent } from './views/components/inputs/select/select.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,8 @@ import { FlatpickrModule } from 'angularx-flatpickr';
 
     CarsListComponent,
     CarsInfoComponent,
+
+    SelectComponent,
   ],
   imports: [
     BrowserModule,
