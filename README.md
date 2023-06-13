@@ -1,27 +1,84 @@
-# WypozyczalniaSamochodow
+# Zakup auta 🚗️
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.2.
+- [Polski 🇵🇱️](#polski)
+- [English 🇬🇧️](#english)
 
-## Development server
+## Polski 🇵🇱️
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+"Wypożyczalnia samochodów" jest aplikacją demonstracyjną typu SPA (Single Page Application) służącą do wypożyczenia auta. Aplikacja składa się z trzech stron:
 
-## Code scaffolding
+- List (listy samochodów)
+- Form (formularza do wypożyczenia auta)
+- Summary (podsumowania zamówienia)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Projekt został napisany w Angular i wykorzystuje:
 
-## Build
+- session storage
+- form validation (reactive forms)
+- komponenty
+- serwisy
+- router
+- guardy
+- API (json-server)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Uruchamianie
 
-## Running unit tests
+Aby uruchomić aplikację należy:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+1. Zainstalować zależności
 
-## Running end-to-end tests
+```bash
+npm install
+```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+2. Uruchomić aplikację
 
-## Further help
+```bash
+npm start
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+a następnie w przeglądarce przejść pod adres:
+
+```
+http://localhost:4200/
+```
+
+## English 🇬🇧️
+
+"Wypożyczalnia samochodów" is an SPA (Single Page Application) style demo application for renting a car. The application consists of three pages:
+
+- List (car list)
+- Form (car order form)
+- Summary (car order summary)
+
+The project is written in Angular and uses:
+
+- session storage
+- form validation (reactive forms)
+- components
+- services
+- router
+- guards
+- API (json-server)
+
+### Running
+
+To run application:
+
+1. Install dependencies
+
+```bash
+npm install
+```
+
+2. Run application
+
+```bash
+npm start
+```
+
+and using your browser of choice navigate to:
+
+```
+http://localhost:4200/
+```
