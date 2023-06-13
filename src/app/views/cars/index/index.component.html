@@ -1,0 +1,22 @@
+<div #view class="opacity-0 transition-opacity delay-200 duration-300">
+  <h1 class="text-3xl font-bold">Samochody</h1>
+
+  <div class="flex flex-col gap-1 my-3 md:flex-row">
+    <app-select
+      *ngIf="brandFilterOptions$ | async as brandFilterOptions"
+      label="Marka"
+      [options]="brandFilterOptions"
+      (change)="onBrandFilterOptionChange($event)"
+      class="grow"
+    />
+
+    <app-select
+      label="Dostępność"
+      [options]="availabilityFilterOptions"
+      (change)="onAvailabilityFilterOptionChange($event)"
+      class="grow"
+    />
+  </div>
+
+  <app-cars-list *ngIf="cars$ | async as cars" [cars]="cars" />
+</div>

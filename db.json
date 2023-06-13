@@ -1,0 +1,71 @@
+{
+  "cars": [
+    {
+      "id": 1,
+      "brand": "Skoda",
+      "model": "Citigo",
+      "year": 2018,
+      "fuel": "Benzyna",
+      "enginePower": 11,
+      "price": 400,
+      "img": "https://picsum.photos/id/183/150/175",
+      "available": true
+    },
+    {
+      "id": 2,
+      "brand": "Skoda",
+      "model": "Fabia",
+      "year": 2018,
+      "fuel": "Diesel",
+      "enginePower": 22,
+      "price": 500,
+      "img": "https://picsum.photos/id/183/150/175",
+      "available": true
+    },
+    {
+      "id": 3,
+      "brand": "Skoda",
+      "model": "Octavia",
+      "year": 2020,
+      "fuel": "Hybryda",
+      "enginePower": 33,
+      "price": 600,
+      "img": "https://picsum.photos/id/183/150/175",
+      "available": false
+    },
+    {
+      "id": 4,
+      "brand": "Toyota",
+      "model": "Aygo",
+      "year": 2014,
+      "fuel": "Diesel",
+      "enginePower": 44,
+      "price": 400,
+      "img": "https://picsum.photos/id/183/150/175",
+      "available": true
+    },
+    {
+      "id": 5,
+      "brand": "Toyota",
+      "model": "Yaris",
+      "year": 2015,
+      "fuel": "Benzyna",
+      "enginePower": 55,
+      "price": 500,
+      "img": "https://picsum.photos/id/183/150/175",
+      "available": true
+    },
+    {
+      "id": 6,
+      "brand": "Toyota",
+      "model": "Rav 4",
+      "year": 2016,
+      "fuel": "Hybryda",
+      "enginePower": 66,
+      "price": 700,
+      "img": "https://picsum.photos/id/183/150/175",
+      "available": true
+    }
+  ],
+  "orders": []
+}

@@ -1,0 +1,232 @@
+<div #view class="opacity-0 transition-opacity delay-200 duration-300">
+  <a routerLink="/cars" class="font-bold">
+    <i class="bi bi-arrow-left"></i>
+    Powrót
+  </a>
+
+  <h1 class="my-3 text-3xl font-bold">Zamówienie</h1>
+
+  <app-cars-info
+    *ngIf="car"
+    [car]="car"
+    [showAvailability]="false"
+    class="block mb-3"
+  />
+
+  <form
+    [formGroup]="orderForm"
+    (ngSubmit)="onSubmit()"
+    class="flex flex-col gap-4 py-2 px-3 border rounded-lg bg-white border-gray-300"
+  >
+    <fieldset class="flex flex-col gap-2">
+      <legend class="font-bold">Podstawowe informacje</legend>
+
+      <div class="flex flex-col gap-0.5">
+        <label for="full-name">Imię i nazwisko</label>
+        <input
+          id="full-name"
+          type="text"
+          formControlName="fullName"
+          placeholder="Podaj imię i nazwisko"
+          class="rounded-lg bg-gray-300 focus:border-blue-500 focus:ring-blue-500"
+          [ngClass]="{
+            'border-red-500 ring-1 ring-red-500':
+              orderForm.controls.fullName.touched &&
+              orderForm.controls.fullName.invalid
+          }"
+        />
+
+        <div
+          *ngIf="
+            orderForm.controls.fullName.touched &&
+            orderForm.controls.fullName.invalid
+          "
+          class="text-xs text-red-500"
+        >
+          <p *ngIf="orderForm.controls.fullName.hasError('required')">
+            To pole musi być wypełnione
+          </p>
+          <p *ngIf="orderForm.controls.fullName.hasError('pattern')">
+            Imię i nazwisko musi być oddzielone spacją
+          </p>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-0.5">
+        <label for="phone-number">Telefon</label>
+
+        <input
+          id="phone-number"
+          type="tel"
+          formControlName="phoneNumber"
+          placeholder="Podaj numer telefonu"
+          class="rounded-lg bg-gray-300 focus:border-blue-500 focus:ring-blue-500"
+          [ngClass]="{
+            'border-red-500 ring-1 ring-red-500':
+              orderForm.controls.phoneNumber.touched &&
+              orderForm.controls.phoneNumber.invalid
+          }"
+        />
+
+        <div
+          *ngIf="
+            orderForm.controls.phoneNumber.touched &&
+            orderForm.controls.phoneNumber.invalid
+          "
+          class="text-xs text-red-500"
+        >
+          <p *ngIf="orderForm.controls.phoneNumber.hasError('required')">
+            To pole musi być wypełnione
+          </p>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-0.5">
+        <label for="email">Email</label>
+
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          placeholder="Podaj adres email"
+          class="rounded-lg bg-gray-300 focus:border-blue-500 focus:ring-blue-500"
+          [ngClass]="{
+            'border-red-500 ring-1 ring-red-500':
+              orderForm.controls.email.touched &&
+              orderForm.controls.email.invalid
+          }"
+        />
+
+        <div
+          *ngIf="
+            orderForm.controls.email.touched && orderForm.controls.email.invalid
+          "
+          class="text-xs text-red-500"
+        >
+          <p *ngIf="orderForm.controls.email.hasError('required')">
+            To pole musi być wypełnione
+          </p>
+          <p *ngIf="orderForm.controls.email.hasError('email')">
+            Adres email nie jest poprawny
+          </p>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend class="font-bold">Okres</legend>
+
+      <div class="flex flex-col gap-0.5">
+        <label for="date-picker">Okres czasu</label>
+
+        <input
+          formControlName="dateRange"
+          type="date"
+          placeholder="Podaj okres czasu"
+          mwlFlatpickr
+          [options]="datePickerOptions"
+          (flatpickrValueUpdate)="onDateRangeChange($event)"
+          class="order-1 rounded-lg bg-gray-300 focus:border-blue-500 focus:ring-blue-500"
+          [ngClass]="{
+            'border-red-500 ring-1 ring-red-500':
+              orderForm.controls.dateRange.touched &&
+              orderForm.controls.dateRange.invalid
+          }"
+        />
+
+        <div
+          *ngIf="
+            orderForm.controls.dateRange.touched &&
+            orderForm.controls.dateRange.invalid
+          "
+          class="order-2 text-xs text-red-500"
+        >
+          <p *ngIf="orderForm.controls.dateRange.hasError('required')">
+            To pole musi być wypełnione
+          </p>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="flex flex-col gap-2">
+      <legend class="mb-2 font-bold">Metoda płatności</legend>
+
+      <div
+        *ngIf="
+          orderForm.controls.paymentMethod.touched &&
+          orderForm.controls.paymentMethod.invalid
+        "
+        class="mb-2 text-xs text-red-500"
+      >
+        <p *ngIf="orderForm.controls.paymentMethod.hasError('required')">
+          To pole musi być wypełnione
+        </p>
+      </div>
+
+      <div
+        (click)="onSitePaymentRadio.click(); onSitePaymentRadio.focus()"
+        class="flex justify-between items-center gap-4 form-input rounded-lg bg-gray-300 focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500"
+        [ngClass]="{
+          'border-red-500 ring-1 ring-red-500':
+            orderForm.controls.paymentMethod.touched &&
+            orderForm.controls.paymentMethod.invalid
+        }"
+      >
+        <label for="on-site-payment">Przy odbiorze</label>
+
+        <input
+          #onSitePaymentRadio
+          id="on-site-payment"
+          type="radio"
+          value="on-site"
+          formControlName="paymentMethod"
+          class="text-blue-500 focus:ring-offset-0 focus:ring-1 focus:ring-blue-700"
+          [ngClass]="{
+            'border-red-500 ring-1 ring-red-500':
+              orderForm.controls.paymentMethod.touched &&
+              orderForm.controls.paymentMethod.invalid
+          }"
+        />
+      </div>
+
+      <div
+        (click)="transferPaymentRadio.click(); transferPaymentRadio.focus()"
+        class="flex justify-between items-center gap-4 form-input rounded-lg bg-gray-300 focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500"
+        [ngClass]="{
+          'border-red-500 ring-1 ring-red-500':
+            orderForm.controls.paymentMethod.touched &&
+            orderForm.controls.paymentMethod.invalid
+        }"
+      >
+        <label for="transfer-payment">Przelew</label>
+
+        <input
+          #transferPaymentRadio
+          id="transfer-payment"
+          type="radio"
+          value="transfer"
+          formControlName="paymentMethod"
+          class="text-blue-500 focus:ring-offset-0 focus:ring-1 focus:ring-blue-700"
+          [ngClass]="{
+            'border-red-500 ring-1 ring-red-500':
+              orderForm.controls.paymentMethod.touched &&
+              orderForm.controls.paymentMethod.invalid
+          }"
+        />
+      </div>
+    </fieldset>
+
+    <p class="flex justify-between font-bold">
+      <span>Razem: </span>
+      <span>{{ totalPrice | currency }}</span>
+    </p>
+
+    <button
+      type="submit"
+      [disabled]="!orderForm.valid"
+      class="w-full p-3 rounded-lg text-center font-bold text-white bg-blue-500 border border-blue-700 disabled:bg-gray-500 disabled:border-gray-700"
+    >
+      Złóż zamówienie
+    </button>
+  </form>
+</div>

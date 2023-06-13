@@ -1,1 +1,38 @@
-/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.flatpickr-calendar.inline {
+  top: 4px;
+  align-self: center;
+  order: 3;
+}
+
+.flatpickr-day.selected,
+.flatpickr-day.startRange,
+.flatpickr-day.endRange,
+.flatpickr-day.startRange:hover,
+.flatpickr-day.endRange:hover,
+.flatpickr-day.startRange:focus,
+.flatpickr-day.endRange:focus {
+  background-color: #3b82f6;
+  border-color: #3b82f6;
+}
+
+.flatpickr-day.selected.startRange + .endRange:not(:nth-child(7n + 1)),
+.flatpickr-day.startRange.startRange + .endRange:not(:nth-child(7n + 1)) {
+  box-shadow: -10px 0 0 #3b82f6;
+}
+
+.flatpickr-day.inRange {
+  background-color: #d1d5db;
+  border-color: #d1d5db;
+  box-shadow: -5px 0 0 #d1d5db, 5px 0 0 #d1d5db;
+}
+
+.flatpickr-day:hover {
+  background-color: #d1d5db;
+  border-color: #d1d5db;
+}
